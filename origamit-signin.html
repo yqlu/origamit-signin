@@ -1,0 +1,102 @@
+<head>
+	<title>Meetings Dashboard</title>
+</head>
+<body>
+<div class="container"
+		 ng-app="signin"
+		 ng-controller="signinCtrl">
+
+	<div ng-if="frontpage">
+		<header>
+			<h1>OrigaMIT Meetings Dashboard</h1>
+		</header>
+
+		<div class="row">
+			<div class="col-sm-6">
+			  <p class="input-group">
+			    <input type="date" class="form-control" uib-datepicker-popup ng-model="curDate" is-open="popup.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" ng-click="open($event)" show-button-bar="false"/>
+			    <span class="input-group-btn">
+			      <button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button>
+			    </span>
+			  </p>
+			</div>
+			<div class="col-sm-3">
+				<a class="btn btn-default" ng-click="addDate()">Add meeting</a>
+			</div>
+			<div class="col-sm-3">
+				<a class="btn btn-default pull-right" ng-click="export()">Export</a>
+			</div>
+		</div>
+		<div class="alert alert-danger" ng-show="dateError">{{dateError}}</div>
+
+		<hr>
+
+		<div class="panel panel-default" ng-repeat="meeting in meetings | orderBy: date">
+			<div class="panel-body">
+				<h4 ng-click="showThisMeeting(meeting)" class="inline-panel-title">{{meeting.date.toDateString()}}</h4>
+				<a class="btn pull-right btn-xs" ng-click="removeMeeting(meeting)"><i class="fa fa-times"></i></a>
+			</div>
+		</div>
+	</div>
+
+	<div ng-if="!frontpage">
+		<div class="row">
+			<div class="col-sm-10">
+				<h1>OrigaMIT Meeting: {{curMeeting.date.toDateString()}}</h1>
+			</div>
+			<div class="col-sm-2">
+				<a class="btn btn-default pull-right backBtn" ng-click="showFrontpage()">Go back</a>
+			</div>
+		</div>
+		<hr>
+		<form class="form-horizontal">
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Name</label>
+				<div class="col-sm-6" id="bloodhound">
+					<input type="text" ng-model="curMember.name" uib-typeahead="member.name for member in allMembers | filter:{name: $viewValue} | limitTo:8" typeahead-on-select="onMemberSelect($item, $model, $label, $event)" class="form-control">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Affiliation</label>
+				<div class="col-sm-6">
+					<select id="affiliation" class="form-control" ng-model="curMember.affiliation">
+					    <option value="Non-MIT">Non-MIT</option>
+					    <option value="2019">2019</option>
+					    <option value="2018">2018</option>
+					    <option value="2017">2017</option>
+					    <option value="2016">2016</option>
+					    <option value="Graduate">Graduate</option>
+					    <option value="Alumni">Alumni</option>
+					    <option value="Staff">Staff</option>
+					    <option value="Faculty">Faculty</option>
+					</select>
+				</div>
+			</div>
+			<p>Provide your email if you are not yet on our mailing list and would like to join:
+			</p>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Email (optional)</label>
+				<div class="col-sm-6">
+					<input id="email" type="text" class="form-control" ng-model="curMember.email"><br>
+				</div><br>
+			</div>
+			<div class="alert alert-danger" ng-show="memberError">{{memberError}}</div>
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-6">
+					<a class="btn btn-primary" ng-click="submitMember()">Submit</a>
+				</div>
+			</div>
+		</form>
+		<hr>
+		<div class="panel panel-default" ng-repeat="memberid in curMeeting.members">
+			<div class="panel-body">
+				{{displayMember(memberid)}}
+				<a class="btn pull-right btn-xs" ng-click="removeMember($index)"><i class="fa fa-times"></i></a>
+			</div>
+		</div>
+	</div>
+
+</div>
+</body>
+
