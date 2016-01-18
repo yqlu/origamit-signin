@@ -88,6 +88,7 @@ if (Meteor.isClient) {
     };
 
     $scope.removeMeeting = function(meeting) {
+      console.log(meeting, $scope.meetings);
       var r = confirm("Are you sure? This cannot be undone.");
       if (r) {
         $scope.meetings.remove(meeting);
