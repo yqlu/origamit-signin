@@ -29,16 +29,16 @@ if (Meteor.isClient) {
     $scope.curDate = new Date();
     $scope.dateError = "";
 
-    $scope.addDate = function(year, month, day) {
+    $scope.addDate = function(curDate) {
       // protest if meeting on this date already exists
       if ($scope.meetings.find(function(d) {
-        return d.date.toDateString() === $scope.curDate.toDateString();
+        return d.date.toDateString() === curDate.toDateString();
       })) {
         $scope.dateError = "Error: meeting on this date already exists";
       } else {
         // else create new meeting, reset curDate
         $scope.dateError = "";
-        $scope.meetings.push({date: $scope.curDate, members: []});
+        $scope.meetings.push({date: curDate, members: []});
         $scope.curDate = new Date();
       }
     };
@@ -87,10 +87,10 @@ if (Meteor.isClient) {
       $scope.curMeeting = {};
     };
 
-    $scope.removeMeeting = function() {
+    $scope.removeMeeting = function(meeting) {
       var r = confirm("Are you sure? This cannot be undone.");
       if (r) {
-        meetings.remove(meeting);
+        $scope.meetings.remove(meeting);
       }
     };
 

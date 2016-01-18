@@ -14,21 +14,20 @@
 		<div class="row">
 			<div class="col-sm-6">
 			  <p class="input-group">
-			    <input type="date" class="form-control" uib-datepicker-popup ng-model="curDate" is-open="popup.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" ng-click="open($event)" show-button-bar="false"/>
+			    <input type="date" class="form-control" id="datepicker" uib-datepicker-popup ng-model="curDate" is-open="popup.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" ng-click="open($event)" show-button-bar="false"/>
 			    <span class="input-group-btn">
 			      <button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button>
 			    </span>
 			  </p>
 			</div>
 			<div class="col-sm-3">
-				<a class="btn btn-default" ng-click="addDate()">Add meeting</a>
+				<a class="btn btn-default" ng-click="addDate(curDate)">Add meeting</a>
 			</div>
 			<div class="col-sm-3">
 				<a class="btn btn-default pull-right" ng-click="export()">Export</a>
 			</div>
 		</div>
 		<div class="alert alert-danger" ng-show="dateError">{{dateError}}</div>
-
 		<hr>
 
 		<div class="panel panel-default" ng-repeat="meeting in meetings | orderBy: date">
