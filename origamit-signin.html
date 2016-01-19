@@ -31,8 +31,9 @@
 		<hr>
 
 		<div class="panel panel-default" ng-repeat="meeting in meetings | orderBy: date">
-			<div class="panel-body">
-				<h4 ng-click="showThisMeeting(meeting)" class="inline-panel-title">{{meeting.date.toDateString()}}</h4>
+			<div ng-click="showThisMeeting(meeting)" class="panel-body clickable-panel">
+				<h4 class="inline-panel-title">{{meeting.date.toDateString()}} </h4>
+				({{meeting.members.length}} members)
 				<a class="btn pull-right btn-xs" ng-click="removeMeeting(meeting)"><i class="fa fa-times"></i></a>
 			</div>
 		</div>
@@ -41,12 +42,13 @@
 	<div ng-if="!frontpage">
 		<div class="row">
 			<div class="col-sm-10">
-				<h1>OrigaMIT Meeting: {{curMeeting.date.toDateString()}}</h1>
+				<h1>OrigaMIT Meeting</h1>
 			</div>
 			<div class="col-sm-2">
 				<a class="btn btn-default pull-right backBtn" ng-click="showFrontpage()">Go back</a>
 			</div>
 		</div>
+		<h3>{{curMeeting.date.toDateString()}}</h3>
 		<hr>
 		<form class="form-horizontal">
 			<div class="form-group">
@@ -95,17 +97,6 @@
 			</div>
 		</div>
 	</div>
-
-	<h4>All Meetings</h4>
-	<pre>{{meetings}}</pre>
-	<h4>Current Meeting</h4>
-	<pre>{{curMeeting}}</pre>
-	<h4>All Members</h4>
-	<pre>{{allMembers}}</pre>
-	<h4>Current Member</h4>
-	<pre>{{curMember}}</pre>
-
-
 </div>
 </body>
 

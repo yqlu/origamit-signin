@@ -4,7 +4,8 @@ Members = new Mongo.Collection('members');
 if (Meteor.isClient) {
   // This code only runs on the client
   angular.module('signin',['angular-meteor', 'ui.bootstrap']);
-  angular.module('signin').controller('signinCtrl', ['$scope', '$meteor', function ($scope, $meteor) {
+  angular.module('signin')
+  .controller('signinCtrl', ['$scope', '$meteor', function ($scope, $meteor) {
 
     // initialize meteor collections
     $scope.meetings = $meteor.collection(function() {
@@ -88,7 +89,6 @@ if (Meteor.isClient) {
     };
 
     $scope.removeMeeting = function(meeting) {
-      console.log(meeting, $scope.meetings);
       var r = confirm("Are you sure? This cannot be undone.");
       if (r) {
         $scope.meetings.remove(meeting);
@@ -98,7 +98,6 @@ if (Meteor.isClient) {
     $scope.curMember = {name: "", affiliation: "", email: ""};
 
     $scope.displayMember = function(id) {
-      console.log(id);
       var mem = Members.findOne(id);
       return mem.name + " (" + mem.affiliation + ")";
     };

@@ -1,6 +1,9 @@
+.clickable-panel {
+	cursor: pointer;
+}
+
 .inline-panel-title {
 	display: inline;
-	cursor: pointer;
 }
 
 .backBtn {
