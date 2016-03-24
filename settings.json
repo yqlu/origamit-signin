@@ -1,0 +1,7 @@
+{
+"galaxy.meteor.com": {
+	"env": {
+		"MONGO_URL": "mongodb://origamit:Or1gam1t@ds031671.mlab.com:31671/origamit"
+		}
+	}
+}
